@@ -1,0 +1,14 @@
+replicaCount: 1
+
+image:
+  repository: "vprofile/vprofiledb"
+  tag: "V1"
+
+podTemplate:
+  initContainers:
+    - name: busybox
+      image: busybox:latest
+      command: ["rm", "-rf", "/var/lib/mysql/lost+found"]
+      volumeMounts:
+        - name: vpro-db-data
+          mountPath: /var/lib/mysql
