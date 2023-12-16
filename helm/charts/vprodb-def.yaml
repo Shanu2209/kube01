@@ -8,22 +8,16 @@ spec:
   selector:
     matchLabels:
       app: vprodb
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
         app: vprodb
     spec:
-      initContainers:
-        - name: busybox
-          image: busybox:latest
-          command: ["rm", "-rf", "/var/lib/mysql/lost+found"]
-          volumeMounts:
-            - name: vpro-db-data
-              mountPath: /var/lib/mysql
+      initContainers: {{ .Values.podTemplate.initContainers }}
       containers:
         - name: vprodb
-          image: vprofile/vprofiledb:V1
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           volumeMounts:
             - mountPath: /var/lib/mysql
               name: vpro-db-data
