@@ -1,0 +1,1691 @@
+ubuntu@ip-172-31-15-90:~$ kubectl get pods -n prod01
+NAME                        READY   STATUS        RESTARTS   AGE
+vproapp-6c6d57c758-dwf65    3/3     Terminating   0          32s
+vproapp-6c6d57c758-j4987    3/3     Terminating   0          39s
+vproapp-6c6d57c758-k5gsz    3/3     Running       0          12s
+vprodb-69fc898bd7-jp6fm     0/1     Pending       0          12s
+vprodb-69fc898bd7-rzcvf     0/1     Terminating   0          39s
+vpromc-5c65464866-q4rg8     1/1     Running       0          12s
+vpromq01-69b8ff77dc-tpcdf   1/1     Running       0          12s
+ubuntu@ip-172-31-15-90:~$ kubectl get pods -n prod01
+NAME                        READY   STATUS        RESTARTS   AGE
+vproapp-6c6d57c758-k5gsz    3/3     Running       0          20s
+vprodb-69fc898bd7-jp6fm     0/1     Pending       0          20s
+vprodb-69fc898bd7-rzcvf     0/1     Terminating   0          47s
+vpromc-5c65464866-q4rg8     1/1     Running       0          20s
+vpromq01-69b8ff77dc-tpcdf   1/1     Running       0          20s
+ubuntu@ip-172-31-15-90:~$ kubectl get pods -n prod01
+NAME                        READY   STATUS        RESTARTS   AGE
+vproapp-6c6d57c758-k5gsz    3/3     Running       0          24s
+vprodb-69fc898bd7-jp6fm     0/1     Pending       0          24s
+vprodb-69fc898bd7-rzcvf     0/1     Terminating   0          51s
+vpromc-5c65464866-q4rg8     1/1     Running       0          24s
+vpromq01-69b8ff77dc-tpcdf   1/1     Running       0          24s
+ubuntu@ip-172-31-15-90:~$ kubectl get pods -n prod01
+NAME                        READY   STATUS        RESTARTS   AGE
+vproapp-6c6d57c758-k5gsz    3/3     Running       0          26s
+vprodb-69fc898bd7-jp6fm     0/1     Pending       0          26s
+vprodb-69fc898bd7-rzcvf     0/1     Terminating   0          53s
+vpromc-5c65464866-q4rg8     1/1     Running       0          26s
+vpromq01-69b8ff77dc-tpcdf   1/1     Running       0          26s
+ubuntu@ip-172-31-15-90:~$ 
+ubuntu@ip-172-31-15-90:~$ kubectl get pods -n prod01
+NAME                        READY   STATUS        RESTARTS   AGE
+vproapp-6c6d57c758-k5gsz    3/3     Running       0          28s
+vprodb-69fc898bd7-jp6fm     0/1     Pending       0          28s
+vprodb-69fc898bd7-rzcvf     0/1     Terminating   0          55s
+vpromc-5c65464866-q4rg8     1/1     Running       0          28s
+vpromq01-69b8ff77dc-tpcdf   1/1     Running       0          28s
+ubuntu@ip-172-31-15-90:~$ kubectl get pods -n prod01
+NAME                        READY   STATUS        RESTARTS   AGE
+vproapp-6c6d57c758-k5gsz    3/3     Running       0          30s
+vprodb-69fc898bd7-jp6fm     0/1     Pending       0          30s
+vprodb-69fc898bd7-rzcvf     0/1     Terminating   0          57s
+vpromc-5c65464866-q4rg8     1/1     Running       0          30s
+vpromq01-69b8ff77dc-tpcdf   1/1     Running       0          30s
+ubuntu@ip-172-31-15-90:~$ kubectl get pods -n prod01
+NAME                        READY   STATUS        RESTARTS   AGE
+vproapp-6c6d57c758-k5gsz    3/3     Running       0          32s
+vprodb-69fc898bd7-jp6fm     0/1     Pending       0          32s
+vprodb-69fc898bd7-rzcvf     0/1     Terminating   0          59s
+vpromc-5c65464866-q4rg8     1/1     Running       0          32s
+vpromq01-69b8ff77dc-tpcdf   1/1     Running       0          32s
+ubuntu@ip-172-31-15-90:~$ kubectl describe  pods vprodb-69fc898bd7-jp6fm   -n prod01
+Name:             vprodb-69fc898bd7-jp6fm
+Namespace:        prod01
+Priority:         0
+Service Account:  default
+Node:             <none>
+Labels:           app=vprodb
+                  pod-template-hash=69fc898bd7
+Annotations:      <none>
+Status:           Pending
+IP:               
+IPs:              <none>
+Controlled By:    ReplicaSet/vprodb-69fc898bd7
+Containers:
+  vprodb:
+    Image:      vprofile/vprofiledb:V1
+    Port:       3306/TCP
+    Host Port:  0/TCP
+    Environment:
+      MYSQL_ROOT_PASSWORD:  <set to the key 'db-pass' in secret 'app-secret'>  Optional: false
+    Mounts:
+      /var/lib/mysql from vpro-db-data (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-2gq84 (ro)
+Conditions:
+  Type           Status
+  PodScheduled   False 
+Volumes:
+  vpro-db-data:
+    Type:       AWSElasticBlockStore (a Persistent Disk resource in AWS)
+    VolumeID:   vol-0f97cff93dd355ae2
+    FSType:     ext4
+    Partition:  0
+    ReadOnly:   false
+  kube-api-access-2gq84:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              zone=ap-south-1a
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason            Age                From               Message
+  ----     ------            ----               ----               -------
+  Warning  FailedScheduling  32s (x3 over 48s)  default-scheduler  0/3 nodes are available: 1 node(s) didn't match Pod's node affinity/selector, 1 node(s) had no available disk, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }. preemption: 0/3 nodes are available: 1 No preemption victims found for incoming pod, 2 Preemption is not helpful for scheduling..
+ubuntu@ip-172-31-15-90:~$ kubectl delete all --all -n prod01
+pod "vproapp-6c6d57c758-k5gsz" deleted
+pod "vprodb-69fc898bd7-jp6fm" deleted
+pod "vpromc-5c65464866-q4rg8" deleted
+pod "vpromq01-69b8ff77dc-tpcdf" deleted
+service "vproapp-service" deleted
+service "vprocache01" deleted
+service "vprodb" deleted
+service "vvpromq01" deleted
+deployment.apps "vproapp" deleted
+deployment.apps "vprodb" deleted
+deployment.apps "vpromc" deleted
+deployment.apps "vpromq01" deleted
+ubuntu@ip-172-31-15-90:~$ $ kubectget pods -n prod01
+NAME                        READY   STATUS              RESTARTS   AGE
+vproapp-6c6d57c758-54wx2    0/3     ContainerCreating   0          1s
+vproapp-6c6d57c758-k5gsz    3/3     Terminating         0          2m8s
+vproapp-6c6d57c758-rtmj6    3/3     Terminating         0          30s
+vprodb-69fc898bd7-z2g4w     0/1     ContainerCreating   0          1s
+vpromc-5c65464866-zlgnk     0/1     ContainerCreating   0          1s
+vpromq01-69b8ff77dc-ch5qv   1/1     Terminating         0          30s
+vpromq01-69b8ff77dc-ssh2k   0/1     ContainerCreating   0          1s
+ubuntu@ip-172-31-15-90:~$ kubectl get pods -n prod01
+NAME                        READY   STATUS              RESTARTS   AGE
+vproapp-6c6d57c758-54wx2    0/3     ContainerCreating   0          3s
+vproapp-6c6d57c758-k5gsz    3/3     Terminating         0          2m10s
+vproapp-6c6d57c758-rtmj6    3/3     Terminating         0          32s
+vprodb-69fc898bd7-z2g4w     0/1     ContainerCreating   0          3s
+vpromc-5c65464866-zlgnk     0/1     ContainerCreating   0          3s
+vpromq01-69b8ff77dc-ch5qv   1/1     Terminating         0          32s
+vpromq01-69b8ff77dc-ssh2k   0/1     ContainerCreating   0          3s
+ubuntu@ip-172-31-15-90:~$ kubectl get pods -n prod01
+NAME                        READY   STATUS              RESTARTS   AGE
+vproapp-6c6d57c758-54wx2    0/3     ContainerCreating   0          4s
+vproapp-6c6d57c758-rtmj6    3/3     Terminating         0          33s
+vprodb-69fc898bd7-z2g4w     0/1     ContainerCreating   0          4s
+vpromc-5c65464866-zlgnk     1/1     Running             0          4s
+vpromq01-69b8ff77dc-ch5qv   1/1     Terminating         0          33s
+vpromq01-69b8ff77dc-ssh2k   0/1     ContainerCreating   0          4s
+ubuntu@ip-172-31-15-90:~$ kubectl describe pod vprodb-69fc898bd7-z2g4w -n prod01
+Name:             vprodb-69fc898bd7-z2g4w
+Namespace:        prod01
+Priority:         0
+Service Account:  default
+Node:             i-0fb84c7593e6d2d76/172.20.63.178
+Start Time:       Sat, 16 Dec 2023 14:25:03 +0000
+Labels:           app=vprodb
+                  pod-template-hash=69fc898bd7
+Annotations:      <none>
+Status:           Running
+IP:               100.96.2.53
+IPs:
+  IP:           100.96.2.53
+Controlled By:  ReplicaSet/vprodb-69fc898bd7
+Containers:
+  vprodb:
+    Container ID:   containerd://4ca715b434d7ad422fd6e4c094b560cc174989bbc2042e8ba8f7cc17195f6909
+    Image:          vprofile/vprofiledb:V1
+    Image ID:       docker.io/vprofile/vprofiledb@sha256:56824afd35fabf2fafb028a90fef0e6a5cafb59519f866729be653cbba1e89cd
+    Port:           3306/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       CrashLoopBackOff
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Sat, 16 Dec 2023 14:25:13 +0000
+      Finished:     Sat, 16 Dec 2023 14:25:14 +0000
+    Ready:          False
+    Restart Count:  1
+    Environment:
+      MYSQL_ROOT_PASSWORD:  <set to the key 'db-pass' in secret 'app-secret'>  Optional: false
+    Mounts:
+      /var/lib/mysql from vpro-db-data (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-trjbv (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  vpro-db-data:
+    Type:       AWSElasticBlockStore (a Persistent Disk resource in AWS)
+    VolumeID:   vol-0f97cff93dd355ae2
+    FSType:     ext4
+    Partition:  0
+    ReadOnly:   false
+  kube-api-access-trjbv:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              zone=ap-south-1a
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason                  Age                From                     Message
+  ----     ------                  ----               ----                     -------
+  Normal   Scheduled               24s                default-scheduler        Successfully assigned prod01/vprodb-69fc898bd7-z2g4w to i-0fb84c7593e6d2d76
+  Normal   SuccessfulAttachVolume  20s                attachdetach-controller  AttachVolume.Attach succeeded for volume "ebs.csi.aws.com-vol-0f97cff93dd355ae2"
+  Warning  BackOff                 12s (x2 over 13s)  kubelet                  Back-off restarting failed container vprodb in pod vprodb-69fc898bd7-z2g4w_prod01(58bc926a-98bf-4bde-bae0-84ef14af49e3)
+  Normal   Pulled                  0s (x3 over 16s)   kubelet                  Container image "vprofile/vprofiledb:V1" already present on machine
+  Normal   Created                 0s (x3 over 16s)   kubelet                  Created container vprodb
+  Normal   Started                 0s (x3 over 15s)   kubelet                  Started container vprodb
+ubuntu@ip-172-31-15-90:~$ kubectl describe pod vprodb-69fc898bd7-z2g4w -n prod01
+Name:             vprodb-69fc898bd7-z2g4w
+Namespace:        prod01
+Priority:         0
+Service Account:  default
+Node:             i-0fb84c7593e6d2d76/172.20.63.178
+Start Time:       Sat, 16 Dec 2023 14:25:03 +0000
+Labels:           app=vprodb
+                  pod-template-hash=69fc898bd7
+Annotations:      <none>
+Status:           Running
+IP:               100.96.2.53
+IPs:
+  IP:           100.96.2.53
+Controlled By:  ReplicaSet/vprodb-69fc898bd7
+Containers:
+  vprodb:
+    Container ID:   containerd://2e46a4368aba889b877524a0da875d361c39a99ef9258fc769a2aef589dcbaa7
+    Image:          vprofile/vprofiledb:V1
+    Image ID:       docker.io/vprofile/vprofiledb@sha256:56824afd35fabf2fafb028a90fef0e6a5cafb59519f866729be653cbba1e89cd
+    Port:           3306/TCP
+    Host Port:      0/TCP
+    State:          Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Sat, 16 Dec 2023 14:25:27 +0000
+      Finished:     Sat, 16 Dec 2023 14:25:27 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Sat, 16 Dec 2023 14:25:13 +0000
+      Finished:     Sat, 16 Dec 2023 14:25:14 +0000
+    Ready:          False
+    Restart Count:  2
+    Environment:
+      MYSQL_ROOT_PASSWORD:  <set to the key 'db-pass' in secret 'app-secret'>  Optional: false
+    Mounts:
+      /var/lib/mysql from vpro-db-data (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-trjbv (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  vpro-db-data:
+    Type:       AWSElasticBlockStore (a Persistent Disk resource in AWS)
+    VolumeID:   vol-0f97cff93dd355ae2
+    FSType:     ext4
+    Partition:  0
+    ReadOnly:   false
+  kube-api-access-trjbv:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              zone=ap-south-1a
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason                  Age               From                     Message
+  ----     ------                  ----              ----                     -------
+  Normal   Scheduled               33s               default-scheduler        Successfully assigned prod01/vprodb-69fc898bd7-z2g4w to i-0fb84c7593e6d2d76
+  Normal   SuccessfulAttachVolume  29s               attachdetach-controller  AttachVolume.Attach succeeded for volume "ebs.csi.aws.com-vol-0f97cff93dd355ae2"
+  Normal   Pulled                  9s (x3 over 25s)  kubelet                  Container image "vprofile/vprofiledb:V1" already present on machine
+  Normal   Created                 9s (x3 over 25s)  kubelet                  Created container vprodb
+  Normal   Started                 9s (x3 over 24s)  kubelet                  Started container vprodb
+  Warning  BackOff                 8s (x3 over 22s)  kubelet                  Back-off restarting failed container vprodb in pod vprodb-69fc898bd7-z2g4w_prod01(58bc926a-98bf-4bde-bae0-84ef14af49e3)
+ubuntu@ip-172-31-15-90:~$ kubectl get all pods -n -prod
+error: you must specify only one resource
+ubuntu@ip-172-31-15-90:~$ kubectl get all pods -n -prod01
+error: you must specify only one resource
+ubuntu@ip-172-31-15-90:~$ kubectl get all  -n -prod01
+No resources found in -prod01 namespace.
+ubuntu@ip-172-31-15-90:~$ kubectl get all  -n prod01
+NAME                            READY   STATUS    RESTARTS      AGE
+pod/vproapp-6c6d57c758-54wx2    3/3     Running   0             58s
+pod/vprodb-69fc898bd7-z2g4w     0/1     Error     3 (34s ago)   58s
+pod/vpromc-5c65464866-zlgnk     1/1     Running   0             58s
+pod/vpromq01-69b8ff77dc-ssh2k   1/1     Running   0             58s
+
+NAME                      TYPE           CLUSTER-IP      EXTERNAL-IP                                                               PORT(S)        AGE
+service/vproapp-service   LoadBalancer   100.64.31.207   a8507c61ed3ed4f30bde7945cd97dd55-635413242.ap-south-1.elb.amazonaws.com   80:30056/TCP   58s
+service/vprocache01       ClusterIP      100.65.81.107   <none>                                                                    11211/TCP      58s
+service/vprodb            ClusterIP      100.65.117.35   <none>                                                                    3306/TCP       58s
+service/vvpromq01         ClusterIP      100.67.72.163   <none>                                                                    15672/TCP      58s
+
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/vproapp    1/1     1            1           58s
+deployment.apps/vprodb     0/1     1            0           58s
+deployment.apps/vpromc     1/1     1            1           58s
+deployment.apps/vpromq01   1/1     1            1           58s
+
+NAME                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/vproapp-6c6d57c758    1         1         1       58s
+replicaset.apps/vprodb-69fc898bd7     1         1         0       58s
+replicaset.apps/vpromc-5c65464866     1         1         1       58s
+replicaset.apps/vpromq01-69b8ff77dc   1         1         1       58s
+ubuntu@ip-172-31-15-90:~$ kubectl describe pod/vprodb-69fc898bd7-z2g4w  -n prod01
+Name:             vprodb-69fc898bd7-z2g4w
+Namespace:        prod01
+Priority:         0
+Service Account:  default
+Node:             i-0fb84c7593e6d2d76/172.20.63.178
+Start Time:       Sat, 16 Dec 2023 14:25:03 +0000
+Labels:           app=vprodb
+                  pod-template-hash=69fc898bd7
+Annotations:      <none>
+Status:           Running
+IP:               100.96.2.53
+IPs:
+  IP:           100.96.2.53
+Controlled By:  ReplicaSet/vprodb-69fc898bd7
+Containers:
+  vprodb:
+    Container ID:   containerd://69e69e458acac1b9c7200e1deac6b82961b5cbb80aafd7797c48720d756aba03
+    Image:          vprofile/vprofiledb:V1
+    Image ID:       docker.io/vprofile/vprofiledb@sha256:56824afd35fabf2fafb028a90fef0e6a5cafb59519f866729be653cbba1e89cd
+    Port:           3306/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       CrashLoopBackOff
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Sat, 16 Dec 2023 14:25:57 +0000
+      Finished:     Sat, 16 Dec 2023 14:25:57 +0000
+    Ready:          False
+    Restart Count:  3
+    Environment:
+      MYSQL_ROOT_PASSWORD:  <set to the key 'db-pass' in secret 'app-secret'>  Optional: false
+    Mounts:
+      /var/lib/mysql from vpro-db-data (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-trjbv (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  vpro-db-data:
+    Type:       AWSElasticBlockStore (a Persistent Disk resource in AWS)
+    VolumeID:   vol-0f97cff93dd355ae2
+    FSType:     ext4
+    Partition:  0
+    ReadOnly:   false
+  kube-api-access-trjbv:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              zone=ap-south-1a
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason                  Age                From                     Message
+  ----     ------                  ----               ----                     -------
+  Normal   Scheduled               90s                default-scheduler        Successfully assigned prod01/vprodb-69fc898bd7-z2g4w to i-0fb84c7593e6d2d76
+  Normal   SuccessfulAttachVolume  86s                attachdetach-controller  AttachVolume.Attach succeeded for volume "ebs.csi.aws.com-vol-0f97cff93dd355ae2"
+  Normal   Pulled                  36s (x4 over 82s)  kubelet                  Container image "vprofile/vprofiledb:V1" already present on machine
+  Normal   Created                 36s (x4 over 82s)  kubelet                  Created container vprodb
+  Normal   Started                 36s (x4 over 81s)  kubelet                  Started container vprodb
+  Warning  BackOff                 8s (x7 over 79s)   kubelet                  Back-off restarting failed container vprodb in pod vprodb-69fc898bd7-z2g4w_prod01(58bc926a-98bf-4bde-bae0-84ef14af49e3)
+ubuntu@ip-172-31-15-90:~$ kubectl logs vprodb-69fc898bd7-z2g4w -n prod01
+Initializing database
+2023-12-16T14:26:38.592033Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).
+2023-12-16T14:26:38.593347Z 0 [ERROR] --initialize specified but the data directory has files in it. Aborting.
+2023-12-16T14:26:38.593380Z 0 [ERROR] Aborting
+
+ubuntu@ip-172-31-15-90:~$ kubectl get all pods -n -prod01
+error: you must specify only one resource
+ubuntu@ip-172-31-15-90:~$ kubectl delete all --all -n prod01
+pod "vproapp-6c6d57c758-54wx2" deleted
+pod "vprodb-69fc898bd7-z2g4w" deleted
+pod "vpromc-5c65464866-zlgnk" deleted
+pod "vpromq01-69b8ff77dc-ssh2k" deleted
+service "vproapp-service" deleted
+service "vprocache01" deleted
+service "vprodb" deleted
+service "vvpromq01" deleted
+deployment.apps "vproapp" deleted
+deployment.apps "vprodb" deleted
+deployment.apps "vpromc" deleted
+deployment.apps "vpromq01" deleted
+^Cubuntu@ip-172-31-15-90:~$ ls
+Chart.yaml  image.yaml      templates    vprofile-project
+Kube-CICD   kubectl.sha256  values.yaml  vprofilecharts
+ubuntu@ip-172-31-15-90:~$ cd vprofile-project/
+ubuntu@ip-172-31-15-90:~/vprofile-project$ ls
+README.md  compose  helm  kubernetes  pom.xml  src
+ubuntu@ip-172-31-15-90:~/vprofile-project$ cd kubernetes/
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes$ ls
+app.yml  db  memcache  tomapp  vpro-app
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes$ cd vpro-app/
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ ls
+app-secret.yml  mc-CIP.yml           rmq-dep.yml          vprodbdep.yml
+data            mcdep.yml            vproapp-service.yml
+db-CIP.yml      rmq-CIP-service.yml  vproappdep.yml
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ vim vprodbdep.yml 
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl apply -f .
+secret/app-secret created
+service/vprodb created
+service/vprocache01 created
+deployment.apps/vpromc created
+service/vpromq01 created
+deployment.apps/vpromq01 created
+service/vproapp-service created
+deployment.apps/vproapp created
+deployment.apps/vprodb created
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS            RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    0/1     PodInitializing   0          9s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1          0          9s
+vpromc-5c65464866-gjhwb     1/1     Running           0          9s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running           0          9s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS            RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    0/1     PodInitializing   0          11s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1          0          11s
+vpromc-5c65464866-gjhwb     1/1     Running           0          11s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running           0          11s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS            RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    0/1     PodInitializing   0          12s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1          0          12s
+vpromc-5c65464866-gjhwb     1/1     Running           0          12s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running           0          12s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS            RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    0/1     PodInitializing   0          13s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1          0          13s
+vpromc-5c65464866-gjhwb     1/1     Running           0          13s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running           0          13s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS            RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    0/1     PodInitializing   0          14s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1          0          14s
+vpromc-5c65464866-gjhwb     1/1     Running           0          14s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running           0          14s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS            RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    0/1     PodInitializing   0          15s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1          0          15s
+vpromc-5c65464866-gjhwb     1/1     Running           0          15s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running           0          15s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS            RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    0/1     PodInitializing   0          16s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1          0          16s
+vpromc-5c65464866-gjhwb     1/1     Running           0          16s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running           0          16s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS            RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    0/1     PodInitializing   0          19s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1          0          19s
+vpromc-5c65464866-gjhwb     1/1     Running           0          19s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running           0          19s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          20s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          20s
+vpromc-5c65464866-gjhwb     1/1     Running    0          20s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          20s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          21s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          21s
+vpromc-5c65464866-gjhwb     1/1     Running    0          21s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          21s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          21s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          21s
+vpromc-5c65464866-gjhwb     1/1     Running    0          21s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          21s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          22s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          22s
+vpromc-5c65464866-gjhwb     1/1     Running    0          22s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          22s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          23s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          23s
+vpromc-5c65464866-gjhwb     1/1     Running    0          23s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          23s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          24s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          24s
+vpromc-5c65464866-gjhwb     1/1     Running    0          24s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          24s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          25s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          25s
+vpromc-5c65464866-gjhwb     1/1     Running    0          25s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          25s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          26s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          26s
+vpromc-5c65464866-gjhwb     1/1     Running    0          26s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          26s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          27s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          27s
+vpromc-5c65464866-gjhwb     1/1     Running    0          27s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          27s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          28s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          28s
+vpromc-5c65464866-gjhwb     1/1     Running    0          28s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          28s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          31s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          31s
+vpromc-5c65464866-gjhwb     1/1     Running    0          31s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          31s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          33s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          33s
+vpromc-5c65464866-gjhwb     1/1     Running    0          33s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          33s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          34s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          34s
+vpromc-5c65464866-gjhwb     1/1     Running    0          34s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          34s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          36s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          36s
+vpromc-5c65464866-gjhwb     1/1     Running    0          36s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          36s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          37s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          37s
+vpromc-5c65464866-gjhwb     1/1     Running    0          37s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          37s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          38s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          38s
+vpromc-5c65464866-gjhwb     1/1     Running    0          38s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          38s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ 
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl apply -f .
+secret/app-secret unchanged
+service/vprodb unchanged
+service/vprocache01 unchanged
+deployment.apps/vpromc unchanged
+service/vpromq01 unchanged
+deployment.apps/vpromq01 unchanged
+service/vproapp-service unchanged
+deployment.apps/vproapp unchanged
+deployment.apps/vprodb unchanged
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods -n prod01
+No resources found in prod01 namespace.
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          2m2s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          2m2s
+vpromc-5c65464866-gjhwb     1/1     Running    0          2m2s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          2m2s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          2m4s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          2m4s
+vpromc-5c65464866-gjhwb     1/1     Running    0          2m4s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          2m4s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl describe pod vprodb-84c9ccd949-xbkbh
+Name:             vprodb-84c9ccd949-xbkbh
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             i-03272e6425a2ea263/172.20.68.28
+Start Time:       Sat, 16 Dec 2023 14:32:08 +0000
+Labels:           app=vprodb
+                  pod-template-hash=84c9ccd949
+Annotations:      kubernetes.io/limit-ranger: LimitRanger plugin set: cpu request for container vprodb; cpu request for init container busybox
+Status:           Pending
+IP:               
+IPs:              <none>
+Controlled By:    ReplicaSet/vprodb-84c9ccd949
+Init Containers:
+  busybox:
+    Container ID:  
+    Image:         busybox:latest
+    Image ID:      
+    Port:          <none>
+    Host Port:     <none>
+    Args:
+      rm
+      -rf
+      /var/lib/mysql/lost+found
+    State:          Waiting
+      Reason:       PodInitializing
+    Ready:          False
+    Restart Count:  0
+    Requests:
+      cpu:        100m
+    Environment:  <none>
+    Mounts:
+      /var/lib/mysql from vpro-db-data (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-fnsk2 (ro)
+Containers:
+  vprodb:
+    Container ID:   
+    Image:          vprofile/vprofiledb
+    Image ID:       
+    Port:           3306/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       PodInitializing
+    Ready:          False
+    Restart Count:  0
+    Requests:
+      cpu:  100m
+    Environment:
+      MYSQL_ROOT_PASSWORD:  <set to the key 'db-pass' in secret 'app-secret'>  Optional: false
+    Mounts:
+      /var/lib/mysql from vpro-db-data (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-fnsk2 (ro)
+Conditions:
+  Type              Status
+  Initialized       False 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  vpro-db-data:
+    Type:       AWSElasticBlockStore (a Persistent Disk resource in AWS)
+    VolumeID:   vol-0f97cff93dd355ae2
+    FSType:     ext4
+    Partition:  0
+    ReadOnly:   false
+  kube-api-access-fnsk2:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              zone=ap-south-1b
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason              Age    From                     Message
+  ----     ------              ----   ----                     -------
+  Normal   Scheduled           2m13s  default-scheduler        Successfully assigned default/vprodb-84c9ccd949-xbkbh to i-03272e6425a2ea263
+  Warning  FailedAttachVolume  2m12s  attachdetach-controller  AttachVolume.Attach failed for volume "ebs.csi.aws.com-vol-0f97cff93dd355ae2" : rpc error: code = Internal desc = Could not attach volume "vol-0f97cff93dd355ae2" to node "i-03272e6425a2ea263": could not attach volume "vol-0f97cff93dd355ae2" to node "i-03272e6425a2ea263": InvalidVolume.ZoneMismatch: The volume 'vol-0f97cff93dd355ae2' is not in the same availability zone as instance 'i-03272e6425a2ea263'
+           status code: 400, request id: cb9395e4-59d1-4eb5-987d-e097381fb989
+  Warning  FailedAttachVolume  2m11s  attachdetach-controller  AttachVolume.Attach failed for volume "ebs.csi.aws.com-vol-0f97cff93dd355ae2" : rpc error: code = Internal desc = Could not attach volume "vol-0f97cff93dd355ae2" to node "i-03272e6425a2ea263": could not attach volume "vol-0f97cff93dd355ae2" to node "i-03272e6425a2ea263": InvalidVolume.ZoneMismatch: The volume 'vol-0f97cff93dd355ae2' is not in the same availability zone as instance 'i-03272e6425a2ea263'
+           status code: 400, request id: 979e180a-88d1-44d0-a5fd-5fc7c961510b
+  Warning  FailedAttachVolume  2m7s (x2 over 2m10s)  attachdetach-controller  AttachVolume.Attach failed for volume "ebs.csi.aws.com-vol-0f97cff93dd355ae2" : rpc error: code = Internal desc = Could not attach volume "vol-0f97cff93dd355ae2" to node "i-03272e6425a2ea263": could not attach volume "vol-0f97cff93dd355ae2" to node "i-03272e6425a2ea263": InvalidVolume.ZoneMismatch: The volume 'vol-0f97cff93dd355ae2' is not in the same availability zone as instance 'i-03272e6425a2ea263'
+           status code: 400, request id: c102c4ef-39f8-4180-aff5-53a981127794
+  Warning  FailedAttachVolume  2m2s  attachdetach-controller  AttachVolume.Attach failed for volume "ebs.csi.aws.com-vol-0f97cff93dd355ae2" : rpc error: code = Internal desc = Could not attach volume "vol-0f97cff93dd355ae2" to node "i-03272e6425a2ea263": could not attach volume "vol-0f97cff93dd355ae2" to node "i-03272e6425a2ea263": InvalidVolume.ZoneMismatch: The volume 'vol-0f97cff93dd355ae2' is not in the same availability zone as instance 'i-03272e6425a2ea263'
+           status code: 400, request id: b3988f48-89e9-4e25-940e-fd8987222ef2
+  Warning  FailedAttachVolume  114s  attachdetach-controller  AttachVolume.Attach failed for volume "ebs.csi.aws.com-vol-0f97cff93dd355ae2" : rpc error: code = Internal desc = Could not attach volume "vol-0f97cff93dd355ae2" to node "i-03272e6425a2ea263": could not attach volume "vol-0f97cff93dd355ae2" to node "i-03272e6425a2ea263": InvalidVolume.ZoneMismatch: The volume 'vol-0f97cff93dd355ae2' is not in the same availability zone as instance 'i-03272e6425a2ea263'
+           status code: 400, request id: a6bd68be-ad13-4ef6-915b-e68bd17daa7b
+  Warning  FailedAttachVolume  97s  attachdetach-controller  AttachVolume.Attach failed for volume "ebs.csi.aws.com-vol-0f97cff93dd355ae2" : rpc error: code = Internal desc = Could not attach volume "vol-0f97cff93dd355ae2" to node "i-03272e6425a2ea263": could not attach volume "vol-0f97cff93dd355ae2" to node "i-03272e6425a2ea263": InvalidVolume.ZoneMismatch: The volume 'vol-0f97cff93dd355ae2' is not in the same availability zone as instance 'i-03272e6425a2ea263'
+           status code: 400, request id: 30f44285-9155-4a95-b22a-d6e02c6cd71d
+  Warning  FailedMount         10s               kubelet                  Unable to attach or mount volumes: unmounted volumes=[vpro-db-data], unattached volumes=[vpro-db-data kube-api-access-fnsk2]: timed out waiting for the condition
+  Warning  FailedAttachVolume  0s (x2 over 65s)  attachdetach-controller  AttachVolume.Attach failed for volume "ebs.csi.aws.com-vol-0f97cff93dd355ae2" : rpc error: code = Internal desc = Could not attach volume "vol-0f97cff93dd355ae2" to node "i-03272e6425a2ea263": could not attach volume "vol-0f97cff93dd355ae2" to node "i-03272e6425a2ea263": InvalidVolume.ZoneMismatch: The volume 'vol-0f97cff93dd355ae2' is not in the same availability zone as instance 'i-03272e6425a2ea263'
+           status code: 400, request id: 13e48065-bc48-42aa-9ed5-bd2826cbe4f0
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ vim vprodbdep.yml 
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl apply -f .
+secret/app-secret unchanged
+service/vprodb unchanged
+service/vprocache01 unchanged
+deployment.apps/vpromc unchanged
+service/vpromq01 unchanged
+deployment.apps/vpromq01 unchanged
+service/vproapp-service unchanged
+deployment.apps/vproapp unchanged
+deployment.apps/vprodb configured
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl apply -f .
+secret/app-secret unchanged
+service/vprodb unchanged
+service/vprocache01 unchanged
+deployment.apps/vpromc unchanged
+service/vpromq01 unchanged
+deployment.apps/vpromq01 unchanged
+service/vproapp-service unchanged
+deployment.apps/vproapp unchanged
+deployment.apps/vprodb unchanged
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          2m52s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          2m52s
+vprodb-cc4fd5b4b-pcwx9      0/1     Init:0/1   0          6s
+vpromc-5c65464866-gjhwb     1/1     Running    0          2m52s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          2m52s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          2m55s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          2m55s
+vprodb-cc4fd5b4b-pcwx9      0/1     Init:0/1   0          9s
+vpromc-5c65464866-gjhwb     1/1     Running    0          2m55s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          2m55s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          2m57s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          2m57s
+vprodb-cc4fd5b4b-pcwx9      0/1     Init:0/1   0          11s
+vpromc-5c65464866-gjhwb     1/1     Running    0          2m57s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          2m57s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS     RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running    0          2m58s
+vprodb-84c9ccd949-xbkbh     0/1     Init:0/1   0          2m58s
+vprodb-cc4fd5b4b-pcwx9      0/1     Init:0/1   0          12s
+vpromc-5c65464866-gjhwb     1/1     Running    0          2m58s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running    0          2m58s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl delete pod vprodb-84c9ccd949-xbkbh
+pod "vprodb-84c9ccd949-xbkbh" deleted
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ ^C
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS            RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running           0          4m25s
+vprodb-84c9ccd949-v7p7f     0/1     Init:0/1          0          76s
+vprodb-cc4fd5b4b-pcwx9      0/1     PodInitializing   0          99s
+vpromc-5c65464866-gjhwb     1/1     Running           0          4m25s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running           0          4m25s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS            RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running           0          4m33s
+vprodb-84c9ccd949-v7p7f     0/1     Init:0/1          0          84s
+vprodb-cc4fd5b4b-pcwx9      0/1     PodInitializing   0          107s
+vpromc-5c65464866-gjhwb     1/1     Running           0          4m33s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running           0          4m33s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ cd data/
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app/data$ ls
+app-secret.yml  db-CIP.yml
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app/data$ cp ~/vprofile-project/kubernetes/vpro-app/vprodbdep.yml .
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app/data$ cd ~/vprofile-project/kubernetes/vpro-app
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ cd data/
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app/data$ vim vprodbdep.yml 
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app/data$ cd ~/vprofile-project/kubernetes/vpro-app
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ kubectl get pods
+NAME                        READY   STATUS    RESTARTS   AGE
+vproapp-85656c4b87-qgdhq    1/1     Running   0          6m55s
+vprodb-cc4fd5b4b-pcwx9      1/1     Running   0          4m9s
+vpromc-5c65464866-gjhwb     1/1     Running   0          6m55s
+vpromq01-69b8ff77dc-9xb7m   1/1     Running   0          6m55s
+ubuntu@ip-172-31-15-90:~/vprofile-project/kubernetes/vpro-app$ cd
+ubuntu@ip-172-31-15-90:~$ git clone https://github.com/Shanu2209/kube01.git
+Cloning into 'kube01'...
+remote: Enumerating objects: 22, done.
+remote: Counting objects: 100% (22/22), done.
+remote: Compressing objects: 100% (19/19), done.
+remote: Total 22 (delta 4), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (22/22), 4.95 KiB | 4.95 MiB/s, done.
+Resolving deltas: 100% (4/4), done.
+ubuntu@ip-172-31-15-90:~$ ls
+Chart.yaml  image.yaml  kubectl.sha256  values.yaml       vprofilecharts
+Kube-CICD   kube01      templates       vprofile-project
+ubuntu@ip-172-31-15-90:~$ cd kube01/
+ubuntu@ip-172-31-15-90:~/kube01$ cd helm
+ubuntu@ip-172-31-15-90:~/kube01/helm$ cexit
+cexit: command not found
+ubuntu@ip-172-31-15-90:~/kube01/helm$ exit
+logout
+Connection to ec2-3-108-65-141.ap-south-1.compute.amazonaws.com closed.
+(base) lsn-user@LSN-ITs-MacBook-Air-32 Downloads % ssh -i "Mumbai-Key.pem" ubuntu@ec2-3-108-65-141.ap-south-1.compute.amazonaws.com
+Welcome to Ubuntu 22.04.3 LTS (GNU/Linux 6.2.0-1012-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sat Dec 16 14:46:23 UTC 2023
+
+  System load:  0.0               Processes:             109
+  Usage of /:   47.3% of 7.57GB   Users logged in:       1
+  Memory usage: 37%               IPv4 address for eth0: 172.31.15.90
+  Swap usage:   0%
+
+ * Ubuntu Pro delivers the most comprehensive open source security and
+   compliance features.
+
+   https://ubuntu.com/aws/pro
+
+Expanded Security Maintenance for Applications is not enabled.
+
+35 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+7 additional security updates can be applied with ESM Apps.
+Learn more about enabling ESM Apps service at https://ubuntu.com/esm
+
+
+*** System restart required ***
+Last login: Sat Dec 16 13:34:28 2023 from 103.214.63.182
+ubuntu@ip-172-31-15-90:~$ ls
+Chart.yaml  image.yaml  kubectl.sha256  values.yaml       vprofilecharts
+Kube-CICD   kube01      templates       vprofile-project
+ubuntu@ip-172-31-15-90:~$ rm -rf kube01/
+ubuntu@ip-172-31-15-90:~$ git clone https://github.com/Shanu2209/kube01.git
+Cloning into 'kube01'...
+remote: Enumerating objects: 25, done.
+remote: Counting objects: 100% (25/25), done.
+remote: Compressing objects: 100% (21/21), done.
+remote: Total 25 (delta 4), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (25/25), 5.60 KiB | 5.60 MiB/s, done.
+Resolving deltas: 100% (4/4), done.
+ubuntu@ip-172-31-15-90:~$ cd kube01/helm/charts/
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts$ helm create vcharts
+Creating vcharts
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts$ ls
+app-dep.yaml     mc-service.yml       rabbitmq.yaml         vprodb-def.yaml
+app-secret.yaml  mem-dep.yaml         vcharts
+db-service.yaml  rabbit-service.yaml  vproapp-service.yaml
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts$ cd vcharts/
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ ls
+Chart.yaml  charts  templates  values.yaml
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ rm -rf templates/*
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ cp /kube01/helm/charts/* templates/
+cp: cannot stat '/kube01/helm/charts/*': No such file or directory
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ cp ~/kube01/helm/charts/* templates/
+cp: -r not specified; omitting directory '/home/ubuntu/kube01/helm/charts/vcharts'
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ cp -r ~/kube01/helm/charts/* templates/
+cp: cannot copy a directory, '/home/ubuntu/kube01/helm/charts/vcharts', into itself, 'templates/vcharts'
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ cp ~/kube01/helm/charts/* templates/
+cp: -r not specified; omitting directory '/home/ubuntu/kube01/helm/charts/vcharts'
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ cd templates/
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts/templates$ ls
+app-dep.yaml     mc-service.yml       rabbitmq.yaml         vprodb-def.yaml
+app-secret.yaml  mem-dep.yaml         vcharts
+db-service.yaml  rabbit-service.yaml  vproapp-service.yaml
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts/templates$ rm -rf vcharts
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts/templates$ ls
+app-dep.yaml     mc-service.yml       rabbitmq.yaml
+app-secret.yaml  mem-dep.yaml         vproapp-service.yaml
+db-service.yaml  rabbit-service.yaml  vprodb-def.yaml
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts/templates$ cd
+ubuntu@ip-172-31-15-90:~$ kubclient_loop: send disconnect: Broken pipe
+(base) lsn-user@LSN-ITs-MacBook-Air-32 Downloads % ssh -i "Mumbai-Key.pem" ubuntu@ec2-3-108-65-141.ap-south-1.compute.amazonaws.com
+Welcome to Ubuntu 22.04.3 LTS (GNU/Linux 6.2.0-1012-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sat Dec 16 15:05:03 UTC 2023
+
+  System load:  0.0               Processes:             107
+  Usage of /:   45.9% of 7.57GB   Users logged in:       1
+  Memory usage: 35%               IPv4 address for eth0: 172.31.15.90
+  Swap usage:   0%
+
+ * Ubuntu Pro delivers the most comprehensive open source security and
+   compliance features.
+
+   https://ubuntu.com/aws/pro
+
+Expanded Security Maintenance for Applications is not enabled.
+
+35 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+7 additional security updates can be applied with ESM Apps.
+Learn more about enabling ESM Apps service at https://ubuntu.com/esm
+
+
+*** System restart required ***
+Last login: Sat Dec 16 14:46:24 2023 from 103.214.63.182
+ubuntu@ip-172-31-15-90:~$ cd kube01/
+ubuntu@ip-172-31-15-90:~/kube01$ ls
+README  helm
+ubuntu@ip-172-31-15-90:~/kube01$ cd helm/charts/vcharts/
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ ls
+Chart.yaml  charts  templates  values.yaml
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ git add .
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ git commit -m new
+[main 9b1e4de] new
+ Committer: Ubuntu <ubuntu@ip-172-31-15-90.ap-south-1.compute.internal>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 12 files changed, 329 insertions(+)
+ create mode 100644 helm/charts/vcharts/.helmignore
+ create mode 100644 helm/charts/vcharts/Chart.yaml
+ create mode 100644 helm/charts/vcharts/templates/app-dep.yaml
+ create mode 100644 helm/charts/vcharts/templates/app-secret.yaml
+ create mode 100644 helm/charts/vcharts/templates/db-service.yaml
+ create mode 100644 helm/charts/vcharts/templates/mc-service.yml
+ create mode 100644 helm/charts/vcharts/templates/mem-dep.yaml
+ create mode 100644 helm/charts/vcharts/templates/rabbit-service.yaml
+ create mode 100644 helm/charts/vcharts/templates/rabbitmq.yaml
+ create mode 100644 helm/charts/vcharts/templates/vproapp-service.yaml
+ create mode 100644 helm/charts/vcharts/templates/vprodb-def.yaml
+ create mode 100644 helm/charts/vcharts/values.yaml
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ git push
+Username for 'https://github.com': shanmugamani22@gamail.com
+Password for 'https://shanmugamani22@gamail.com@github.com': 
+remote: Support for password authentication was removed on August 13, 2021.
+remote: Please see https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories#cloning-with-https-urls for information on currently recommended modes of authentication.
+fatal: Authentication failed for 'https://github.com/Shanu2209/kube01.git/'
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ git add .
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ git commit -m new
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ git push
+Username for 'https://github.com': Shanu2209
+Password for 'https://Shanu2209@github.com': 
+remote: Support for password authentication was removed on August 13, 2021.
+remote: Please see https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories#cloning-with-https-urls for information on currently recommended modes of authentication.
+fatal: Authentication failed for 'https://github.com/Shanu2209/kube01.git/'
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ exit
+logout
+Connection to ec2-3-108-65-141.ap-south-1.compute.amazonaws.com closed.
+(base) lsn-user@LSN-ITs-MacBook-Air-32 Downloads % mkdir Shanu_git
+(base) lsn-user@LSN-ITs-MacBook-Air-32 Downloads % cd Shanu_git 
+(base) lsn-user@LSN-ITs-MacBook-Air-32 Shanu_git % git clone https://github.com/Shanu2209/kube01.git
+Cloning into 'kube01'...
+remote: Enumerating objects: 25, done.
+remote: Counting objects: 100% (25/25), done.
+remote: Compressing objects: 100% (21/21), done.
+remote: Total 25 (delta 4), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (25/25), 5.60 KiB | 2.80 MiB/s, done.
+Resolving deltas: 100% (4/4), done.
+(base) lsn-user@LSN-ITs-MacBook-Air-32 Shanu_git % cd kube01 
+(base) lsn-user@LSN-ITs-MacBook-Air-32 kube01 % cd helm/charts 
+(base) lsn-user@LSN-ITs-MacBook-Air-32 charts % ls
+app-dep.yaml		mc-service.yml		rabbitmq.yaml
+app-secret.yaml		mem-dep.yaml		vproapp-service.yaml
+db-service.yaml		rabbit-service.yaml	vprodb-def.yaml
+(base) lsn-user@LSN-ITs-MacBook-Air-32 charts % helm create hcharts
+zsh: command not found: helm
+(base) lsn-user@LSN-ITs-MacBook-Air-32 charts % brew install helm
+
+Running `brew update --auto-update`...
+==> Downloading https://ghcr.io/v2/homebrew/portable-ruby/portable-ruby/blobs/sha256:d783cbeb6e6ef0d71c0b442317b54554370decd6fac66bf2d4938c07a63f67be
+######################################################################### 100.0%
+==> Pouring portable-ruby-3.1.4.arm64_big_sur.bottle.tar.gz
+Installing from the API is now the default behaviour!
+You can save space and time by running:
+  brew untap homebrew/core
+  brew untap homebrew/cask
+==> Auto-updated Homebrew!
+Updated 3 taps (hashicorp/tap, homebrew/core and homebrew/cask).
+==> New Formulae
+argc            dalfox          glbinding@2     pdfrip          retire
+cargo-sweep     direwolf        open-simh       purr            yatas
+chisel-tunnel   drogon          opensca-cli     redress
+==> New Casks
+anka-build-cloud-controller              nx-studio
+anka-build-cloud-registry                october
+brightintosh                             reader
+cardo-update                             screens-assist
+focusrite-control-2                      senabluetoothdevicemanager
+garmin-basecamp                          truhu
+hapigo                                   vimcal
+navigraph-charts                         wave
+navigraph-simlink                        wiso-steuer-2024
+notes-better
+
+You have 41 outdated formulae and 2 outdated casks installed.
+
+==> Downloading https://ghcr.io/v2/homebrew/core/helm/manifests/3.13.3
+######################################################################### 100.0%
+==> Fetching helm
+==> Downloading https://ghcr.io/v2/homebrew/core/helm/blobs/sha256:883818f3e20b0
+######################################################################### 100.0%
+==> Pouring helm--3.13.3.arm64_ventura.bottle.tar.gz
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/bin/helm: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/.brew/helm.rb: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/etc/bash_completion.d/helm: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/README.md: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-package.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-repo-remove.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-show.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-history.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-plugin-uninstall.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-repo.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-plugin-update.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-list.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-env.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-lint.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-get-metadata.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-plugin-install.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-get-notes.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-push.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-completion-zsh.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-get-all.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-show-values.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-get-values.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-dependency.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-status.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-plugin.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-search-hub.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-search-repo.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-get-manifest.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-completion-powershell.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-completion.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-registry.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-registry-logout.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-completion-bash.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-rollback.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-repo-list.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-repo-update.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-version.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-show-all.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-show-readme.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-search.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-pull.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-create.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-dependency-update.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-verify.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-dependency-build.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-install.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-uninstall.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-show-chart.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-dependency-list.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-get-hooks.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-completion-fish.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-upgrade.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-get.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-test.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-repo-index.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-registry-login.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-repo-add.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-show-crds.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-plugin-list.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-template.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/zsh/site-functions/_helm: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/fish/vendor_completions.d/helm.fish: No space left on device
+Error: Failure while executing; `/usr/bin/env cp -pR /private/tmp/d20231216-24438-o74cex/helm/. /opt/homebrew/Cellar/helm` exited with 1. Here's the output:
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/bin/helm: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/.brew/helm.rb: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/etc/bash_completion.d/helm: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/README.md: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-package.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-repo-remove.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-show.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-history.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-plugin-uninstall.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-repo.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-plugin-update.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-list.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-env.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-lint.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-get-metadata.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-plugin-install.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-get-notes.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-push.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-completion-zsh.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-get-all.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-show-values.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-get-values.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-dependency.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-status.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-plugin.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-search-hub.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-search-repo.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-get-manifest.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-completion-powershell.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-completion.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-registry.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-registry-logout.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-completion-bash.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-rollback.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-repo-list.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-repo-update.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-version.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-show-all.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-show-readme.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-search.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-pull.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-create.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-dependency-update.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-verify.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-dependency-build.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-install.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-uninstall.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-show-chart.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-dependency-list.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-get-hooks.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-completion-fish.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-upgrade.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-get.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-test.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-repo-index.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-registry-login.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-repo-add.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-show-crds.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-plugin-list.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/man/man1/helm-template.1: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/zsh/site-functions/_helm: No space left on device
+cp: /private/tmp/d20231216-24438-o74cex/helm/./3.13.3/share/fish/vendor_completions.d/helm.fish: No space left on device
+
+(base) lsn-user@LSN-ITs-MacBook-Air-32 charts % helm create hcharts
+zsh: command not found: helm
+(base) lsn-user@LSN-ITs-MacBook-Air-32 charts % brew install helm
+
+==> Downloading https://ghcr.io/v2/homebrew/core/helm/manifests/3.13.3
+Already downloaded: /Users/lsn-user/Library/Caches/Homebrew/downloads/72098ca0164213a5e2be6772c8300398e4ce3b39c9b418dd82c3872bda1a5b33--helm-3.13.3.bottle_manifest.json
+==> Fetching helm
+==> Downloading https://ghcr.io/v2/homebrew/core/helm/blobs/sha256:883818f3e20b0
+Already downloaded: /Users/lsn-user/Library/Caches/Homebrew/downloads/99055e77d5e2924252d537b2fa5e2a2abcb0e3b084479e6751b60e04f6f5dac3--helm--3.13.3.arm64_ventura.bottle.tar.gz
+==> Pouring helm--3.13.3.arm64_ventura.bottle.tar.gz
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/bin/helm: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/.brew/helm.rb: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/etc/bash_completion.d/helm: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/README.md: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-package.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-repo-remove.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-show.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-history.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-plugin-uninstall.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-repo.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-plugin-update.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-list.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-env.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-lint.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-get-metadata.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-plugin-install.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-get-notes.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-push.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-completion-zsh.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-get-all.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-show-values.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-get-values.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-dependency.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-status.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-plugin.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-search-hub.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-search-repo.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-get-manifest.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-completion-powershell.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-completion.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-registry.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-registry-logout.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-completion-bash.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-rollback.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-repo-list.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-repo-update.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-version.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-show-all.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-show-readme.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-search.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-pull.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-create.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-dependency-update.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-verify.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-dependency-build.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-install.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-uninstall.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-show-chart.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-dependency-list.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-get-hooks.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-completion-fish.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-upgrade.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-get.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-test.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-repo-index.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-registry-login.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-repo-add.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-show-crds.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-plugin-list.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-template.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/zsh/site-functions/_helm: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/fish/vendor_completions.d/helm.fish: No space left on device
+Error: Failure while executing; `/usr/bin/env cp -pR /private/tmp/d20231216-25837-37siz2/helm/. /opt/homebrew/Cellar/helm` exited with 1. Here's the output:
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/bin/helm: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/.brew/helm.rb: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/etc/bash_completion.d/helm: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/README.md: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-package.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-repo-remove.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-show.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-history.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-plugin-uninstall.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-repo.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-plugin-update.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-list.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-env.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-lint.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-get-metadata.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-plugin-install.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-get-notes.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-push.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-completion-zsh.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-get-all.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-show-values.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-get-values.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-dependency.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-status.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-plugin.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-search-hub.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-search-repo.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-get-manifest.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-completion-powershell.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-completion.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-registry.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-registry-logout.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-completion-bash.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-rollback.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-repo-list.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-repo-update.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-version.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-show-all.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-show-readme.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-search.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-pull.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-create.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-dependency-update.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-verify.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-dependency-build.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-install.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-uninstall.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-show-chart.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-dependency-list.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-get-hooks.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-completion-fish.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-upgrade.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-get.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-test.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-repo-index.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-registry-login.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-repo-add.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-show-crds.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-plugin-list.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/man/man1/helm-template.1: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/zsh/site-functions/_helm: No space left on device
+cp: /private/tmp/d20231216-25837-37siz2/helm/./3.13.3/share/fish/vendor_completions.d/helm.fish: No space left on device
+
+(base) lsn-user@LSN-ITs-MacBook-Air-32 charts % brew install helm
+
+==> Downloading https://ghcr.io/v2/homebrew/core/helm/manifests/3.13.3
+Already downloaded: /Users/lsn-user/Library/Caches/Homebrew/downloads/72098ca0164213a5e2be6772c8300398e4ce3b39c9b418dd82c3872bda1a5b33--helm-3.13.3.bottle_manifest.json
+==> Fetching helm
+==> Downloading https://ghcr.io/v2/homebrew/core/helm/blobs/sha256:883818f3e20b0
+Already downloaded: /Users/lsn-user/Library/Caches/Homebrew/downloads/99055e77d5e2924252d537b2fa5e2a2abcb0e3b084479e6751b60e04f6f5dac3--helm--3.13.3.arm64_ventura.bottle.tar.gz
+==> Pouring helm--3.13.3.arm64_ventura.bottle.tar.gz
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/bin/helm: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-get-all.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-show-values.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-get-values.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-dependency.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-status.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-plugin.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-search-hub.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-search-repo.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-get-manifest.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-completion-powershell.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-completion.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-registry.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-registry-logout.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-completion-bash.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-rollback.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-repo-list.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-repo-update.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-version.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-show-all.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-show-readme.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-search.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-pull.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-create.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-dependency-update.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-verify.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-dependency-build.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-install.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-uninstall.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-show-chart.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-dependency-list.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-get-hooks.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-completion-fish.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-upgrade.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-get.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-test.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-repo-index.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-registry-login.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-repo-add.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-show-crds.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-plugin-list.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-template.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/zsh/site-functions/_helm: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/fish/vendor_completions.d/helm.fish: No space left on device
+Error: Failure while executing; `/usr/bin/env cp -pR /private/tmp/d20231216-26030-moqm15/helm/. /opt/homebrew/Cellar/helm` exited with 1. Here's the output:
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/bin/helm: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-get-all.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-show-values.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-get-values.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-dependency.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-status.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-plugin.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-search-hub.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-search-repo.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-get-manifest.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-completion-powershell.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-completion.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-registry.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-registry-logout.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-completion-bash.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-rollback.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-repo-list.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-repo-update.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-version.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-show-all.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-show-readme.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-search.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-pull.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-create.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-dependency-update.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-verify.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-dependency-build.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-install.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-uninstall.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-show-chart.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-dependency-list.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-get-hooks.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-completion-fish.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-upgrade.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-get.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-test.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-repo-index.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-registry-login.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-repo-add.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-show-crds.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-plugin-list.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/man/man1/helm-template.1: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/zsh/site-functions/_helm: No space left on device
+cp: /private/tmp/d20231216-26030-moqm15/helm/./3.13.3/share/fish/vendor_completions.d/helm.fish: No space left on device
+
+(base) lsn-user@LSN-ITs-MacBook-Air-32 charts % brew install helm
+
+==> Downloading https://ghcr.io/v2/homebrew/core/helm/manifests/3.13.3
+Already downloaded: /Users/lsn-user/Library/Caches/Homebrew/downloads/72098ca0164213a5e2be6772c8300398e4ce3b39c9b418dd82c3872bda1a5b33--helm-3.13.3.bottle_manifest.json
+==> Fetching helm
+==> Downloading https://ghcr.io/v2/homebrew/core/helm/blobs/sha256:883818f3e20b0
+Already downloaded: /Users/lsn-user/Library/Caches/Homebrew/downloads/99055e77d5e2924252d537b2fa5e2a2abcb0e3b084479e6751b60e04f6f5dac3--helm--3.13.3.arm64_ventura.bottle.tar.gz
+==> Pouring helm--3.13.3.arm64_ventura.bottle.tar.gz
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/bin/helm: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-list.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-lint.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-get-metadata.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-plugin-install.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-get-notes.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-push.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-completion-zsh.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-get-all.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-show-values.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-get-values.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-dependency.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-status.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-plugin.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-search-hub.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-search-repo.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-get-manifest.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-completion-powershell.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-completion.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-registry.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-registry-logout.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-completion-bash.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-rollback.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-repo-list.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-repo-update.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-version.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-show-all.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-show-readme.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-search.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-pull.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-create.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-dependency-update.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-verify.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-dependency-build.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-install.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-uninstall.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-show-chart.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-dependency-list.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-get-hooks.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-completion-fish.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-upgrade.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-get.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-test.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-repo-index.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-registry-login.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-repo-add.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-show-crds.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-plugin-list.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-template.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/zsh/site-functions/_helm: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/fish/vendor_completions.d/helm.fish: No space left on device
+Error: Failure while executing; `/usr/bin/env cp -pR /private/tmp/d20231216-26214-m93c2l/helm/. /opt/homebrew/Cellar/helm` exited with 1. Here's the output:
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/bin/helm: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-list.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-lint.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-get-metadata.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-plugin-install.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-get-notes.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-push.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-completion-zsh.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-get-all.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-show-values.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-get-values.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-dependency.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-status.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-plugin.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-search-hub.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-search-repo.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-get-manifest.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-completion-powershell.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-completion.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-registry.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-registry-logout.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-completion-bash.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-rollback.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-repo-list.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-repo-update.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-version.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-show-all.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-show-readme.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-search.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-pull.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-create.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-dependency-update.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-verify.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-dependency-build.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-install.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-uninstall.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-show-chart.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-dependency-list.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-get-hooks.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-completion-fish.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-upgrade.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-get.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-test.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-repo-index.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-registry-login.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-repo-add.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-show-crds.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-plugin-list.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/man/man1/helm-template.1: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/zsh/site-functions/_helm: No space left on device
+cp: /private/tmp/d20231216-26214-m93c2l/helm/./3.13.3/share/fish/vendor_completions.d/helm.fish: No space left on device
+
+(base) lsn-user@LSN-ITs-MacBook-Air-32 charts % brew install helm
+
+==> Downloading https://ghcr.io/v2/homebrew/core/helm/manifests/3.13.3
+Already downloaded: /Users/lsn-user/Library/Caches/Homebrew/downloads/72098ca0164213a5e2be6772c8300398e4ce3b39c9b418dd82c3872bda1a5b33--helm-3.13.3.bottle_manifest.json
+==> Fetching helm
+==> Downloading https://ghcr.io/v2/homebrew/core/helm/blobs/sha256:883818f3e20b0
+Already downloaded: /Users/lsn-user/Library/Caches/Homebrew/downloads/99055e77d5e2924252d537b2fa5e2a2abcb0e3b084479e6751b60e04f6f5dac3--helm--3.13.3.arm64_ventura.bottle.tar.gz
+==> Pouring helm--3.13.3.arm64_ventura.bottle.tar.gz
+==> Caveats
+zsh completions have been installed to:
+  /opt/homebrew/share/zsh/site-functions
+==> Summary
+🍺  /opt/homebrew/Cellar/helm/3.13.3: 65 files, 53.7MB
+==> Running `brew cleanup helm`...
+Disable this behaviour by setting HOMEBREW_NO_INSTALL_CLEANUP.
+Hide these hints with HOMEBREW_NO_ENV_HINTS (see `man brew`).
+(base) lsn-user@LSN-ITs-MacBook-Air-32 charts % helm create hcharts
+Creating hcharts
+(base) lsn-user@LSN-ITs-MacBook-Air-32 charts % ls
+app-dep.yaml		mc-service.yml		vproapp-service.yaml
+app-secret.yaml		mem-dep.yaml		vprodb-def.yaml
+db-service.yaml		rabbit-service.yaml
+hcharts			rabbitmq.yaml
+(base) lsn-user@LSN-ITs-MacBook-Air-32 charts % cd hcharts 
+(base) lsn-user@LSN-ITs-MacBook-Air-32 hcharts % ls
+Chart.yaml	charts		templates	values.yaml
+(base) lsn-user@LSN-ITs-MacBook-Air-32 hcharts % rm -rf templates/*
+zsh: sure you want to delete all 8 files in /Users/lsn-user/Downloads/Shanu_git/kube01/helm/charts/hcharts/templates [yn]? y
+(base) lsn-user@LSN-ITs-MacBook-Air-32 hcharts % cp /Users/lsn-user/Downloads/Shanu_git/kube01/helm/charts/**.yaml /Users/lsn-user/Downloads/Shanu_git/kube01/helm/charts/hcharts/templates/
+(base) lsn-user@LSN-ITs-MacBook-Air-32 hcharts % cd templates 
+(base) lsn-user@LSN-ITs-MacBook-Air-32 templates % ls
+app-dep.yaml		mem-dep.yaml		vproapp-service.yaml
+app-secret.yaml		rabbit-service.yaml	vprodb-def.yaml
+db-service.yaml		rabbitmq.yaml
+(base) lsn-user@LSN-ITs-MacBook-Air-32 templates % git add.
+git: 'add.' is not a git command. See 'git --help'.
+
+The most similar command is
+	add
+(base) lsn-user@LSN-ITs-MacBook-Air-32 templates % git add .
+(base) lsn-user@LSN-ITs-MacBook-Air-32 templates % git commit -m "new"
+[main 3e1ef99] new
+ 8 files changed, 172 insertions(+)
+ create mode 100644 helm/charts/hcharts/templates/app-dep.yaml
+ create mode 100644 helm/charts/hcharts/templates/app-secret.yaml
+ create mode 100644 helm/charts/hcharts/templates/db-service.yaml
+ create mode 100644 helm/charts/hcharts/templates/mem-dep.yaml
+ create mode 100644 helm/charts/hcharts/templates/rabbit-service.yaml
+ create mode 100644 helm/charts/hcharts/templates/rabbitmq.yaml
+ create mode 100644 helm/charts/hcharts/templates/vproapp-service.yaml
+ create mode 100644 helm/charts/hcharts/templates/vprodb-def.yaml
+(base) lsn-user@LSN-ITs-MacBook-Air-32 templates % git push
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (6/6), 462 bytes | 462.00 KiB/s, done.
+Total 6 (delta 2), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (2/2), completed with 1 local object.
+To https://github.com/Shanu2209/kube01.git
+   6ce41c9..3e1ef99  main -> main
+(base) lsn-user@LSN-ITs-MacBook-Air-32 templates % ls      
+app-dep.yaml		mem-dep.yaml		vproapp-service.yaml
+app-secret.yaml		rabbit-service.yaml	vprodb-def.yaml
+db-service.yaml		rabbitmq.yaml
+(base) lsn-user@LSN-ITs-MacBook-Air-32 templates % pwd
+/Users/lsn-user/Downloads/Shanu_git/kube01/helm/charts/hcharts/templates
+(base) lsn-user@LSN-ITs-MacBook-Air-32 templates % cd /Users/lsn-user/Downloads/Shanu_git/kube01/helm/charts
+(base) lsn-user@LSN-ITs-MacBook-Air-32 charts % ls
+app-dep.yaml		mc-service.yml		vproapp-service.yaml
+app-secret.yaml		mem-dep.yaml		vprodb-def.yaml
+db-service.yaml		rabbit-service.yaml
+hcharts			rabbitmq.yaml
+(base) lsn-user@LSN-ITs-MacBook-Air-32 charts % cd hcharts 
+(base) lsn-user@LSN-ITs-MacBook-Air-32 hcharts % ls
+Chart.yaml	charts		templates	values.yaml
+(base) lsn-user@LSN-ITs-MacBook-Air-32 hcharts % git add .
+(base) lsn-user@LSN-ITs-MacBook-Air-32 hcharts % pwd
+/Users/lsn-user/Downloads/Shanu_git/kube01/helm/charts/hcharts
+(base) lsn-user@LSN-ITs-MacBook-Air-32 hcharts % cd /Users/lsn-user/Downloads/Shanu_git/kube01/helm
+(base) lsn-user@LSN-ITs-MacBook-Air-32 helm % git add .
+(base) lsn-user@LSN-ITs-MacBook-Air-32 helm % git commit 'new' 
+error: pathspec 'new' did not match any file(s) known to git
+(base) lsn-user@LSN-ITs-MacBook-Air-32 helm % git push
+Everything up-to-date
+(base) lsn-user@LSN-ITs-MacBook-Air-32 helm % cd
+(base) lsn-user@LSN-ITs-MacBook-Air-32 ~ % cd Downloads 
+(base) lsn-user@LSN-ITs-MacBook-Air-32 Downloads % ssh -i "Mumbai-Key.pem" ubuntu@ec2-3-108-65-141.ap-south-1.compute.amazonaws.com
+Welcome to Ubuntu 22.04.3 LTS (GNU/Linux 6.2.0-1012-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sat Dec 16 15:48:21 UTC 2023
+
+  System load:  0.02197265625     Processes:             102
+  Usage of /:   45.9% of 7.57GB   Users logged in:       1
+  Memory usage: 36%               IPv4 address for eth0: 172.31.15.90
+  Swap usage:   0%
+
+ * Ubuntu Pro delivers the most comprehensive open source security and
+   compliance features.
+
+   https://ubuntu.com/aws/pro
+
+Expanded Security Maintenance for Applications is not enabled.
+
+35 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+7 additional security updates can be applied with ESM Apps.
+Learn more about enabling ESM Apps service at https://ubuntu.com/esm
+
+
+*** System restart required ***
+Last login: Sat Dec 16 15:05:04 2023 from 103.214.63.182
+ubuntu@ip-172-31-15-90:~$ kubectl version
+Client Version: v1.29.0
+Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+Server Version: v1.26.11
+WARNING: version difference between client (1.29) and server (1.26) exceeds the supported minor version skew of +/-1
+ubuntu@ip-172-31-15-90:~$ sudo apt-get remove kubectl
+
+# Download the latest version of kubectl
+sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+# Move the binary to a directory in your PATH
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+E: Unable to locate package kubectl
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   138  100   138    0     0    369      0 --:--:-- --:--:-- --:--:--   369
+100 47.4M  100 47.4M    0     0  54.7M      0 --:--:-- --:--:-- --:--:--  139M
+ubuntu@ip-172-31-15-90:~$ kubectl version
+Client Version: v1.29.0
+Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+Server Version: v1.26.11
+WARNING: version difference between client (1.29) and server (1.26) exceeds the supported minor version skew of +/-1
+ubuntu@ip-172-31-15-90:~$ sudo apt-get install kubectl=1.26.11-00
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+E: Unable to locate package kubectl
+ubuntu@ip-172-31-15-90:~$ kubectl version
+Client Version: v1.29.0
+Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+Server Version: v1.26.11
+WARNING: version difference between client (1.29) and server (1.26) exceeds the supported minor version skew of +/-1
+ubuntu@ip-172-31-15-90:~$ kubectl rm -rf /usr/local/bin/kubectl 
+error: unknown command "rm" for "kubectl"
+
+Did you mean this?
+	run
+	delete
+	cp
+ubuntu@ip-172-31-15-90:~$ delete
+delete: command not found
+ubuntu@ip-172-31-15-90:~$ rm -rf /usr/local/bin/kubectl 
+rm: cannot remove '/usr/local/bin/kubectl': Permission denied
+ubuntu@ip-172-31-15-90:~$ sudo rm -rf /usr/local/bin/kubectl 
+ubuntu@ip-172-31-15-90:~$ sudo apt-get install kubectl=1.26.11-00
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+E: Unable to locate package kubectl
+ubuntu@ip-172-31-15-90:~$ ls
+Chart.yaml  image.yaml  kubectl         templates    vprofile-project
+Kube-CICD   kube01      kubectl.sha256  values.yaml  vprofilecharts
+ubuntu@ip-172-31-15-90:~$ chmod +x kubectl
+chmod: changing permissions of 'kubectl': Operation not permitted
+ubuntu@ip-172-31-15-90:~$ sudo chmod +x kubectl
+ubuntu@ip-172-31-15-90:~$ sudo mv kubectl /usr/local/bin/kubectl
+ubuntu@ip-172-31-15-90:~$ kubectl version
+Client Version: v1.29.0
+Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+Server Version: v1.26.11
+WARNING: version difference between client (1.29) and server (1.26) exceeds the supported minor version skew of +/-1
+ubuntu@ip-172-31-15-90:~$ helm version
+version.BuildInfo{Version:"v3.13.3", GitCommit:"c8b948945e52abba22ff885446a1486cb5fd3474", GitTreeState:"clean", GoVersion:"go1.20.11"}
+ubuntu@ip-172-31-15-90:~$ ls
+Chart.yaml  image.yaml  kubectl.sha256  values.yaml       vprofilecharts
+Kube-CICD   kube01      templates       vprofile-project
+ubuntu@ip-172-31-15-90:~$ cd kube01/helm/charts/vcharts/
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ ls
+Chart.yaml  charts  templates  values.yaml
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ vim Chart.yaml 
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ ls
+Chart.yaml  charts  templates  values.yaml
+ubuntu@ip-172-31-15-90:~/kube01/helm/charts/vcharts$ vim Chart.yaml 
+
+apiVersion: v2
+name: vcharts
+description: A Helm chart for Kubernetes
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+"Chart.yaml" 24L, 1143B                                       1,1           Top
